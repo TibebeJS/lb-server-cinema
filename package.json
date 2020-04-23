@@ -1,0 +1,32 @@
+{
+  "name": "gast",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "dotenv": "^8.2.0",
+    "fastify": "^2.13.0",
+    "fastify-cors": "^3.0.3",
+    "fastify-mysql": "^1.0.0",
+    "fastify-plugin": "^1.6.1",
+    "fastify-sequelize": "^1.0.4",
+    "http-errors": "^1.7.3",
+    "install": "^0.13.0",
+    "lodash.groupby": "^4.6.0",
+    "mariadb": "^2.3.1",
+    "mysql2": "^2.1.0",
+    "omdbapi": "^3.0.0",
+    "request": "^2.88.2",
+    "request-promise-native": "^1.0.8",
+    "sequelize": "^5.21.5",
+    "telegraf": "^3.37.0",
+    "tmdb": "^2.5.1"
+  }
+}
