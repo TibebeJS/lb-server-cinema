@@ -8,7 +8,6 @@ const fsequelize = require('fastify-sequelize')
 
 const { cinemas, movies, schedules, sendScheduleToTelegram } = require('./routes')
 
-const API_BASE = 'api/';
 
 fastify.register(require('fastify-cors'), {
     // put your options here
@@ -39,7 +38,7 @@ fastify.register((fastify, opts, next) => {
 
     next();
 
-}, { prefix: API_BASE });
+}, { prefix: process.env.API_BASE });
 
 
 const start = async () => {
