@@ -1,0 +1,8 @@
+---
+deployment:
+    tasks:
+    - export DEPLOYPATH=/home/addisdev/repositories/gast-api
+    - /bin/rm -rf $DEPLOYPATH
+    - /bin/mkdir -p $DEPLOYPATH
+    - /bin/cp -R . $DEPLOYPATH
+    - source /home/addisdev/nodevenv/repositories/gast-api/12/bin/activate && cd /home/addisdev/repositories/gast-api && npm install
