@@ -1,50 +1,51 @@
 var groupBy = require("lodash.groupby");
 
 async function routes(fastify, options) {
-  // returns all schedule for a given day
-  fastify.route({
-    method: "GET",
-    url: "/",
-    schema: {
-      querystring: {
-        date: {
-          type: "string",
-        },
-      },
-      // response: {
-      //     200: {
-      //         type: 'array',
-      //         items: 'schedule#'
-      //     },
-      // }
-    },
-    preHandler: async (request, reply) => {},
-    handler: async (request, reply) => {
-      const { Schedule, Movie, Cinema, MovieType } = fastify.models;
+  // // returns all schedule for a given day
+  // fastify.route({
+  //   method: "GET",
+  //   url: "/",
+  //   schema: {
+  //     querystring: {
+  //       date: {
+  //         type: "string",
+  //       },
+  //     },
+  //     // response: {
+  //     //     200: {
+  //     //         type: 'array',
+  //     //         items: 'schedule#'
+  //     //     },
+  //     // }
+  //   },
+  //   preHandler: async (request, reply) => {},
+  //   handler: async (request, reply) => {
+  //     const { Schedule, Movie, Cinema, MovieType } = fastify.models;
 
-      // const schedules = await (Cinema.findAll({
-      //     include: [
-      //         // Movie,
-      //         Movie
-      //         // Cinema,
-      //         // MovieType
-      //     ],
-      //     where: {
-      //         Movies: {
-      //             Schedule: {
-      //                 id: 1
-      //             }
-      //         }
-      //     }
-      // }));
+  //     // const schedules = await (Cinema.findAll({
+  //     //     include: [
+  //     //         // Movie,
+  //     //         Movie
+  //     //         // Cinema,
+  //     //         // MovieType
+  //     //     ],
+  //     //     where: {
+  //     //         Movies: {
+  //     //             Schedule: {
+  //     //                 id: 1
+  //     //             }
+  //     //         }
+  //     //     }
+  //     // }));
 
-      // console.log(schedules);
-      return await Schedule.findAll({
-        include: [Movie, Cinema, MovieType],
-        field: ["date", "time", "id"],
-      });
-    },
-  });
+  //     // console.log(schedules);
+  //     return await Schedule.findAll({
+  //       include: [Movie, Cinema, MovieType],
+  //       field: ["date", "time", "id"],
+  //     });
+  //   },
+  // });
+  
   fastify.route({
     method: "GET",
     url: "/by-date/:date",
