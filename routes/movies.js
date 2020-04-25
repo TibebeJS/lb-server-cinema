@@ -1,6 +1,7 @@
 const { Op } = require('sequelize');
 const httpErrors = require('http-errors');
 const Tmdb = require('../tmdb-api');
+const moment = require('moment');
 
 const API_KEY = process.env.API_KEY
 ;
@@ -22,19 +23,28 @@ async function routes (fastify, options) {
                 // }
             },
             response: {
-                200: {
-                    type: 'array',
-                    items: 'movie#'
-                },
+                // 200: {
+                //     type: 'array',
+                //     items: 'movie#'
+                // },
             }
         },
         beforeHandler: async (request, reply) => {
 
         },
         handler: async (request, reply) => {
-            const Movie = fastify.models.Movie;
-            return await Movie.findAll({
-            });    
+            const { Schedule, Movie } = fastify.models;
+            
+            return await Schedule.findAll({
+                      where: { date: {
+                        [Op.gte]: moment().day(0).toDate(),
+                        [Op.lte]: moment().day(7).toDate(),
+                      } },
+                      include: [Movie],
+                      field: ["Movie"],
+                    }).map(({ Movie }) => Movie);
+    
+              ;
         }
     });
 
