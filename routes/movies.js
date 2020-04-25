@@ -10,6 +10,19 @@ const apiInstance = new Tmdb({
     apiKey: API_KEY
 });
 
+const distinct = (array) => {
+    const result = [];
+    const map = new Map();
+    for (const item of array) {
+        if(!map.has(item.id)){
+            map.set(item.id, true);    // set any value to Map
+            result.push(item);
+        }
+    }
+    return result;
+    
+}
+
 async function routes (fastify, options) {
     
     // movies now-showing
@@ -35,14 +48,14 @@ async function routes (fastify, options) {
         handler: async (request, reply) => {
             const { Schedule, Movie } = fastify.models;
             
-            return await Schedule.findAll({
+            return distinct(await Schedule.findAll({
                       where: { date: {
                         [Op.gte]: moment().day(0).toDate(),
                         [Op.lte]: moment().day(7).toDate(),
                       } },
                       include: [Movie],
                       field: ["Movie"],
-                    }).map(({ Movie }) => Movie);
+                    }).map(({ Movie }) => Movie));
     
               ;
         }
