@@ -17,11 +17,7 @@ const apiKey = process.env.API_KEY;
     apiKey,
   });
 
-  const data = JSON.parse(
-    (
-      await tmdb.upcomingMovies()
-    ).body
-  );
+  const data = JSON.parse((await tmdb.upcomingMovies()).body);
   // console.log(data.results[0]);
 
   const movies = data.results
@@ -38,6 +34,11 @@ const apiKey = process.env.API_KEY;
       })
     );
 
+  await UpcomingMovie.destroy({
+    where: {},
+    truncate: true,
+  });
+
   for (const movie of movies) {
     const {
       id,
@@ -48,17 +49,11 @@ const apiKey = process.env.API_KEY;
       release_date,
     } = movie;
     try {
- 
-        await UpcomingMovie.destroy({
-            where: {},
-            truncate: true
-          });
       await UpcomingMovie.create({
         overview,
         poster_path,
         release_date,
         title,
-        vote: vote_average,
       });
       console.log(
         `[+] SUCCESSFULLY INSERTED A NEW MOVIE:\n\t${title} - ${release_date}`
