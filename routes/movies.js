@@ -136,8 +136,8 @@ async function routes (fastify, options) {
 
         },
         handler: async (request, reply) => {
-            const Movie = fastify.models.Movie;
-            return await Movie.findAll({
+            const UpcomingMovie = fastify.models.UpcomingMovie;
+            return await UpcomingMovie.findAll({
             });
         }
     });

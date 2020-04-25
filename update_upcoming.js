@@ -11,11 +11,7 @@ const models = require("./models");
 const apiKey = process.env.API_KEY;
 
 (async () => {
-  const { Movie } = await models.bootstrap();
-
-  const savedMovies = await Movie.findAll();
-
-  console.log(savedMovies);
+  const { UpcomingMovie } = await models.bootstrap();
 
   const tmdb = new Tmdb({
     apiKey,
@@ -23,20 +19,14 @@ const apiKey = process.env.API_KEY;
 
   const data = JSON.parse(
     (
-      await tmdb.nowPlayingOnCinema({
-        page: 1,
-        language: "en-US",
-        region: "US",
-      })
+      await tmdb.upcomingMovies()
     ).body
   );
-
   // console.log(data.results[0]);
 
   const movies = data.results
     .filter(({ original_language }) => original_language === "en")
     .sort((x, y) => y.popularity - x.popularity)
-    .slice(0, 10)
     .map(
       ({ poster_path, id, title, vote_average, overview, release_date }) => ({
         poster_path,
@@ -58,12 +48,12 @@ const apiKey = process.env.API_KEY;
       release_date,
     } = movie;
     try {
-      const detail = await omdb.get({
-        title: movie.title,
-        year: movie.release_date.split("-")[0],
-      });
-
-      await Movie.create({
+ 
+        await UpcomingMovie.destroy({
+            where: {},
+            truncate: true
+          });
+      await UpcomingMovie.create({
         overview,
         poster_path,
         release_date,

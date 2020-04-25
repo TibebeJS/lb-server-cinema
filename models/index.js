@@ -32,7 +32,8 @@ exports.bootstrap = async () => {
         MovieType: await init('./movie_type'),
         Seat: await init('./seat'),
         Schedule: await init('./schedule'),
-        ScheduleMovieType: await init('./schedule_movietype')
+        ScheduleMovieType: await init('./schedule_movietype'),
+        UpcomingMovie: await init('./upcoming-movie'),
     };
 
     (async function defineRelations () {
@@ -43,7 +44,7 @@ exports.bootstrap = async () => {
             SeatType,
             Movie,
             MovieType,
-            ScheduleMovieType
+            ScheduleMovieType,
         } = models;
 
         Cinema.belongsToMany(Movie, { through: Schedule });

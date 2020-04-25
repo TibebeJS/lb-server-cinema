@@ -44,6 +44,10 @@ class Tmdb {
     nowPlayingOnCinema({page, language, region}) {
         return this._fetch('movie/now_playing', {page, language, region});
     }
+
+    upcomingMovies() {
+        return this._fetch('/movie/upcoming');
+    }
 }
 
 module.exports = Tmdb;
