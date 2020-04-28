@@ -1,63 +1,68 @@
-require('dotenv').config()
+require("dotenv").config();
 
-const fastify = require('fastify')({
-    logger: true
+const fastify = require("fastify")({
+  logger: true,
 });
 
-const fsequelize = require('fastify-sequelize')
+const fsequelize = require("fastify-sequelize");
 
-const { cinemas, movies, schedules, sendScheduleToTelegram } = require('./routes')
+const {
+  cinemas,
+  movies,
+  schedules,
+  sendScheduleToTelegram,
+} = require("./routes");
 
+fastify.register(require("fastify-cors"), {
+  // put your options here
+  origin: "*",
+});
 
-fastify.register(require('fastify-cors'), {
-    // put your options here
-    origin: '*'
-})
+fastify.register(require("./schemas"));
 
-fastify.register(require('./schemas'));
+fastify.register(require("./models").plugin).ready();
 
-fastify.register(require('./models').plugin).ready();
-
-fastify.register((fastify, opts, next) => {
-
-    fastify
-    .decorate('verifyAdmin', function (request, reply, done) {
-        // your validation logic
-        done() // pass an error if the authentication fails
-    })
-    .register(require('fastify-auth'))
-    .after(async () => {
-
+fastify
+  .decorate("verifyAdmin", function (request, reply, done) {
+    // your validation logic
+    done(); // pass an error if the authentication fails
+  })
+  .register(require("fastify-auth"))
+  .after(async () => {
+    fastify.register(
+      (fastify, opts, next) => {
         fastify.register(cinemas, {
-            prefix: '/cinemas'
-        })
+          prefix: "/cinemas",
+        });
 
         fastify.register(movies, {
-            prefix: '/movies'
-        })
+          prefix: "/movies",
+        });
 
         fastify.register(schedules, {
-            prefix: '/schedules'
-        })
-        
+          prefix: "/schedules",
+        });
+
         fastify.register(sendScheduleToTelegram, {
-            prefix: '/send-schedule-to-telegram'
-        })
-      
-        next()
-    })
+          prefix: "/send-schedule-to-telegram",
+        });
 
-}, { prefix: process.env.API_BASE });
-
+        next();
+      },
+      { prefix: process.env.API_BASE }
+    );
+  });
 
 const start = async () => {
-    try {   
-        await fastify.listen(process.env.PORT, process.env.HOST);
-        fastify.log.info(`[+] server listening on ${fastify.server.address().port}`);
-    } catch (err) {
-        fastify.log.error(err);
-        process.exit(1);
-    }
-}
+  try {
+    await fastify.listen(process.env.PORT, process.env.HOST);
+    fastify.log.info(
+      `[+] server listening on ${fastify.server.address().port}`
+    );
+  } catch (err) {
+    fastify.log.error(err);
+    process.exit(1);
+  }
+};
 
 start();
