@@ -1,4 +1,5 @@
-require("dotenv").config();
+require("dotenv").config()
+const admin = require('./firebase-service')
 
 const fastify = require("fastify")({
   logger: true,
@@ -23,9 +24,26 @@ fastify.register(require("./schemas"));
 fastify.register(require("./models").plugin).ready();
 
 fastify
-  .decorate("verifyAdmin", function (request, reply, done) {
-    // your validation logic
-    done(); // pass an error if the authentication fails
+  .decorate("verifyAdmin", async function (request, reply, done) {
+
+    const authorizationError = new Error("must be authenticated as an admin to perform this operation")
+
+    if (request.headers.authorization && request.headers.authorization.split(" ")[0] === "Bearer") {
+        const userInfo = await admin.auth().verifyIdToken(request.headers.authorization.split(" ")[1]);
+
+        try {
+            if (userInfo && userInfo.uid) {
+                done()
+            } else {
+                done(authorizationError)
+            }
+        } catch (error) {
+            done(authorizationError)            
+        }
+       
+    } else {
+        done(authorizationError)
+    }
   })
   .register(require("fastify-auth"))
   .after(async () => {

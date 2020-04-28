@@ -18,6 +18,7 @@
     "fastify-mysql": "^1.0.0",
     "fastify-plugin": "^1.6.1",
     "fastify-sequelize": "^1.0.4",
+    "firebase-admin": "^8.11.0",
     "http-errors": "^1.7.3",
     "install": "^0.13.0",
     "lodash.groupby": "^4.6.0",
