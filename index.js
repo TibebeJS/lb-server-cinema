@@ -43,8 +43,21 @@ fastify.register((fastify, opts, next) => {
 
 const start = async () => {
     try {
-        await fastify.listen(process.env.PORT, process.env.HOST);
-        fastify.log.info(`[+] server listening on ${fastify.server.address().port}`);
+        fastify
+            .decorate('verifyJWTandLevel', function (request, reply, done) {
+                // your validation logic
+                done() // pass an error if the authentication fails
+            })
+            .decorate('verifyUserAndPassword', function (request, reply, done) {
+                // your validation logic
+                done() // pass an error if the authentication fails
+            })
+            .register(require('fastify-auth'))
+            .after(async () => {
+                await fastify.listen(process.env.PORT, process.env.HOST);
+                fastify.log.info(`[+] server listening on ${fastify.server.address().port}`);
+            }
+        )
     } catch (err) {
         fastify.log.error(err);
         process.exit(1);
