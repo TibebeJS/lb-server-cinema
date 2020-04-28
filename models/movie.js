@@ -4,8 +4,7 @@ module.exports = async (sequelize) => {
     const Movie = sequelize.define('Movie', {
         id: {
             type: DataTypes.INTEGER,
-            primaryKey: true,
-            autoIncrement: true
+            primaryKey: true
         },
         overview: DataTypes.TEXT,
         poster_path: DataTypes.STRING,
