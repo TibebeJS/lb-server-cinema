@@ -129,7 +129,7 @@ async function routes(fastify, options) {
       //     },
       // }
     },
-    preHandler: async (request, reply) => {},
+    preHandler: fastify.auth([fastify.verifyAdmin]),
     handler: async (request, reply) => {
       const { Schedule, Movie, Cinema, MovieType } = fastify.models;
 

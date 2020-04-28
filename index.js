@@ -21,11 +21,7 @@ fastify.register(require('./models').plugin).ready();
 fastify.register((fastify, opts, next) => {
 
     fastify
-    .decorate('verifyJWTandLevel', function (request, reply, done) {
-        // your validation logic
-        done() // pass an error if the authentication fails
-    })
-    .decorate('verifyUserAndPassword', function (request, reply, done) {
+    .decorate('verifyAdmin', function (request, reply, done) {
         // your validation logic
         done() // pass an error if the authentication fails
     })
