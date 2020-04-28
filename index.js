@@ -20,44 +20,44 @@ fastify.register(require('./models').plugin).ready();
 
 fastify.register((fastify, opts, next) => {
 
-    fastify.register(cinemas, {
-        prefix: '/cinemas'
+    fastify
+    .decorate('verifyJWTandLevel', function (request, reply, done) {
+        // your validation logic
+        done() // pass an error if the authentication fails
     })
+    .decorate('verifyUserAndPassword', function (request, reply, done) {
+        // your validation logic
+        done() // pass an error if the authentication fails
+    })
+    .register(require('fastify-auth'))
+    .after(async () => {
 
-    fastify.register(movies, {
-        prefix: '/movies'
-    })
+        fastify.register(cinemas, {
+            prefix: '/cinemas'
+        })
 
-    fastify.register(schedules, {
-        prefix: '/schedules'
-    })
-    
-    fastify.register(sendScheduleToTelegram, {
-        prefix: '/send-schedule-to-telegram'
-    })
+        fastify.register(movies, {
+            prefix: '/movies'
+        })
 
-    next();
+        fastify.register(schedules, {
+            prefix: '/schedules'
+        })
+        
+        fastify.register(sendScheduleToTelegram, {
+            prefix: '/send-schedule-to-telegram'
+        })
+      
+        next()
+    })
 
 }, { prefix: process.env.API_BASE });
 
 
 const start = async () => {
-    try {
-        fastify
-            .decorate('verifyJWTandLevel', function (request, reply, done) {
-                // your validation logic
-                done() // pass an error if the authentication fails
-            })
-            .decorate('verifyUserAndPassword', function (request, reply, done) {
-                // your validation logic
-                done() // pass an error if the authentication fails
-            })
-            .register(require('fastify-auth'))
-            .after(async () => {
-                await fastify.listen(process.env.PORT, process.env.HOST);
-                fastify.log.info(`[+] server listening on ${fastify.server.address().port}`);
-            }
-        )
+    try {   
+        await fastify.listen(process.env.PORT, process.env.HOST);
+        fastify.log.info(`[+] server listening on ${fastify.server.address().port}`);
     } catch (err) {
         fastify.log.error(err);
         process.exit(1);
