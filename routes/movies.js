@@ -38,7 +38,7 @@ async function routes(fastify, options) {
         },
       },
     },
-    beforeHandler: async (request, reply) => {},
+    preHandler: async (request, reply) => {},
     handler: async (request, reply) => {
       const { Schedule, Movie } = fastify.models;
 
@@ -74,7 +74,7 @@ async function routes(fastify, options) {
         },
       },
     },
-    beforeHandler: async (request, reply) => {},
+    preHandler: async (request, reply) => {},
     handler: async (request, reply) => {
       const data = JSON.parse(
         (
@@ -110,7 +110,7 @@ async function routes(fastify, options) {
         },
       },
     },
-    beforeHandler: async (request, reply) => {},
+    preHandler: async (request, reply) => {},
     handler: async (request, reply) => {
       const MovieTypes = fastify.models.MovieType;
       return await MovieTypes.findAll({});
@@ -134,7 +134,7 @@ async function routes(fastify, options) {
         },
       },
     },
-    beforeHandler: async (request, reply) => {},
+    preHandler: async (request, reply) => {},
     handler: async (request, reply) => {
       const Movie = fastify.models.Movie;
 
@@ -183,7 +183,7 @@ async function routes(fastify, options) {
         },
       },
     },
-    beforeHandler: async (request, reply) => {},
+    preHandler: async (request, reply) => {},
     handler: async (request, reply) => {
       const UpcomingMovie = fastify.models.UpcomingMovie;
       return await UpcomingMovie.findAll({});
@@ -207,7 +207,7 @@ async function routes(fastify, options) {
         },
       },
     },
-    beforeHandler: async (request, reply) => {},
+    preHandler: async (request, reply) => {},
     handler: async (request, reply) => {
       return [];
     },
