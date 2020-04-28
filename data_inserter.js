@@ -64,6 +64,7 @@ const apiKey = process.env.API_KEY;
       });
 
       await Movie.create({
+        id,
         overview,
         poster_path,
         release_date,
