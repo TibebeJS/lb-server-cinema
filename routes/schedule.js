@@ -2,7 +2,6 @@ const groupBy = require("lodash.groupby");
 const apiInstance = require("../tmdb-api");
 
 async function routes(fastify, options) {
-
   fastify.route({
     method: "GET",
     url: "/by-date/:date",
@@ -88,16 +87,15 @@ async function routes(fastify, options) {
           title: data.title,
           vote: data.vote_average,
         });
+        request.log.info({
+          id: data.id,
+          overview: data.overview,
+          poster_path: data.poster_path,
+          release_date: data.release_date,
+          title: data.title,
+          vote: data.vote_average,
+        });
       }
-
-      request.log.info({
-        id: data.id,
-        overview: data.overview,
-        poster_path: data.poster_path,
-        release_date: data.release_date,
-        title: data.title,
-        vote: data.vote_average,
-      });
 
       const cinema = await Cinema.findByPk(request.body.cinemaId);
       const movieType = await MovieType.findByPk(request.body.movieTypeId);
@@ -126,7 +124,7 @@ async function routes(fastify, options) {
             type,
             path,
           })),
-          statusCode: 400
+          statusCode: 400,
         };
       }
     },
