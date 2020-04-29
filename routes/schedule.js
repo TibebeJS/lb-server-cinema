@@ -90,7 +90,7 @@ async function routes(fastify, options) {
         });
       }
 
-      console.log({
+      request.log.info({
         id: data.id,
         overview: data.overview,
         poster_path: data.poster_path,

@@ -36,7 +36,6 @@ async function routes(fastify, options) {
       //     }
       // }));
 
-      // console.log(schedules);
       return await Cinema.findAll({
         include: [Schedule],
       });

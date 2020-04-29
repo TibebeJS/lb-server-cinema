@@ -2,7 +2,10 @@ require("dotenv").config();
 const admin = require("./firebase-service");
 
 const fastify = require("fastify")({
-  logger: true,
+  logger: {
+    level: 'info',
+    file: 'logs.log'
+  }
 });
 
 const fsequelize = require("fastify-sequelize");
@@ -15,7 +18,6 @@ const {
 } = require("./routes");
 
 fastify.register(require("fastify-cors"), {
-  // put your options here
   origin: "*",
 });
 

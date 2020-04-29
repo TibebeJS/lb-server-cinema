@@ -25,8 +25,6 @@ const models = require("./models");
     ).body
   );
 
-  // console.log(data.results[0]);
-
   const movies = data.results
     .filter(({ original_language }) => original_language === "en")
     .sort((x, y) => y.popularity - x.popularity)

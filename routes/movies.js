@@ -147,14 +147,6 @@ async function routes(fastify, options) {
               page: 1,
             })
           ).body.results.slice(0, 3);
-
-          // return await Movie.fconsole.log(indAll({
-          //     where: {
-          //         title: {
-          //             [Op.like]: `%${q}%`
-          //         }
-          //     }
-          // });
         }
       } else {
         return [];
