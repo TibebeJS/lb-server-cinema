@@ -22,7 +22,7 @@ async function routes(fastify, options) {
       //     },
       //   },
     },
-    preHandler: async (request, reply) => {},
+    preHandler: fastify.auth([fastify.verifyAdmin]),
     handler: async (request, reply) => {
       const logs = await fsPromise.readFile("./logs.log");
       const lines = logs.toString().split("\n");
