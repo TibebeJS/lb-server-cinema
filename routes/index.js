@@ -1,6 +1,7 @@
 const cinemas = require("./cinemas");
 const movies = require("./movies");
 const schedules = require("./schedule");
+const logs = require("./logs");
 const sendScheduleToTelegram = require("./sendScheduleToTelegram");
 
 module.exports = {
@@ -8,4 +9,5 @@ module.exports = {
   movies,
   schedules,
   sendScheduleToTelegram,
+  logs,
 };

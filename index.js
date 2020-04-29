@@ -3,9 +3,9 @@ const admin = require("./firebase-service");
 
 const fastify = require("fastify")({
   logger: {
-    level: 'info',
-    file: 'logs.log'
-  }
+    level: "info",
+    file: "logs.log",
+  },
 });
 
 const fsequelize = require("fastify-sequelize");
@@ -15,6 +15,7 @@ const {
   movies,
   schedules,
   sendScheduleToTelegram,
+  logs,
 } = require("./routes");
 
 fastify.register(require("fastify-cors"), {
@@ -66,6 +67,10 @@ fastify
 
         fastify.register(schedules, {
           prefix: "/schedules",
+        });
+
+        fastify.register(logs, {
+          prefix: "/logs",
         });
 
         fastify.register(sendScheduleToTelegram, {
