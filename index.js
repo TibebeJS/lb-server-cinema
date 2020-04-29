@@ -72,6 +72,10 @@ fastify
         fastify.register(logs, {
           prefix: "/logs",
         });
+      
+        fastify.register(logs, {
+          prefix: "/users",
+        });
 
         fastify.register(sendScheduleToTelegram, {
           prefix: "/send-schedule-to-telegram",
