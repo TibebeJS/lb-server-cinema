@@ -1,4 +1,5 @@
-var groupBy = require("lodash.groupby");
+const groupBy = require("lodash.groupby");
+const apiInstance = require("../tmdb-api");
 
 async function routes(fastify, options) {
   // // returns all schedule for a given day
@@ -129,13 +130,34 @@ async function routes(fastify, options) {
       //     },
       // }
     },
-    preHandler: fastify.auth([fastify.verifyAdmin]),
+    // preHandler: fastify.auth([fastify.verifyAdmin]),
     handler: async (request, reply) => {
       const { Schedule, Movie, Cinema, MovieType } = fastify.models;
 
-      const movie = await Movie.findByPk(request.body.movieId);
+      const movie = await Movie.findByPk(String(request.body.movieId));
 
-      console.log(request.body);
+      if (!movie) {
+        const data = JSON.parse((await apiInstance.movieDetails(String(request.body.movieId))).body);
+
+        await Movie.create({
+          id: String(data.id),
+          overview: data.overview,
+          poster_path: data.poster_path,
+          release_date: data.release_date,
+          title: data.title,
+          vote: data.vote_average,
+        });
+      }
+
+      console.log({
+        id: data.id,
+        overview: data.overview,
+        poster_path: data.poster_path,
+        release_date: data.release_date,
+        title: data.title,
+        vote: data.vote_average,
+      });
+
 
       const cinema = await Cinema.findByPk(request.body.cinemaId);
       const movieType = await MovieType.findByPk(request.body.movieTypeId);

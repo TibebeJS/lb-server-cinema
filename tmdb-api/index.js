@@ -50,4 +50,6 @@ class Tmdb {
     }
 }
 
-module.exports = Tmdb;
+module.exports = new Tmdb({
+    apiKey: process.env.API_KEY,
+});

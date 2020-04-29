@@ -1,12 +1,7 @@
 const { Op } = require("sequelize");
 const httpErrors = require("http-errors");
-const Tmdb = require("../tmdb-api");
+const apiInstance = require("../tmdb-api");
 const moment = require("moment");
-
-const API_KEY = process.env.API_KEY;
-const apiInstance = new Tmdb({
-  apiKey: API_KEY,
-});
 
 const distinct = (array) => {
   const result = [];
