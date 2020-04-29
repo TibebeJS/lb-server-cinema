@@ -16,6 +16,7 @@ const {
   schedules,
   sendScheduleToTelegram,
   logs,
+  users
 } = require("./routes");
 
 fastify.register(require("fastify-cors"), {
@@ -73,7 +74,7 @@ fastify
           prefix: "/logs",
         });
       
-        fastify.register(logs, {
+        fastify.register(users, {
           prefix: "/users",
         });
 
