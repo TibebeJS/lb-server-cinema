@@ -26,13 +26,15 @@ async function routes(fastify, options) {
     handler: async (request, reply) => {
       const logs = await fsPromise.readFile("./logs.log");
       const lines = logs.toString().split("\n");
-      return lines.map((x) => {
-        try {
-          return JSON.parse(x);
-        } catch (error) {
-          return x;
-        }
-      });
+      return lines
+        .map((x) => {
+          try {
+            return JSON.parse(x);
+          } catch (error) {
+            return x;
+          }
+        })
+        .sort((x, y) => y.time - x.time);
     },
   });
 }
