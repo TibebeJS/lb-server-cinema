@@ -1,6 +1,6 @@
 require("dotenv").config();
 
-const Tmdb = require("./tmdb-api");
+const tmdb = require("./tmdb-api");
 
 const OMDB_KEY = process.env.OMDB_KEY;
 
@@ -12,10 +12,6 @@ const apiKey = process.env.API_KEY;
 
 (async () => {
   const { UpcomingMovie } = await models.bootstrap();
-
-  const tmdb = new Tmdb({
-    apiKey,
-  });
 
   const data = JSON.parse((await tmdb.upcomingMovies()).body);
   // console.log(data.results[0]);
