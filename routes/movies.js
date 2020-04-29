@@ -29,8 +29,8 @@ async function routes(fastify, options) {
       },
       response: {
         200: {
-            type: 'array',
-            items: 'movie#'
+          type: "array",
+          items: "movie#",
         },
       },
     },
@@ -65,8 +65,8 @@ async function routes(fastify, options) {
       },
       response: {
         200: {
-            type: 'array',
-            items: 'movie#'
+          type: "array",
+          items: "movie#",
         },
       },
     },

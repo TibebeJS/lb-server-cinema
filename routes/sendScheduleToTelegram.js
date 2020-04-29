@@ -1,7 +1,6 @@
 const groupBy = require("lodash.groupby");
 
 async function routes(fastify, options) {
- 
   fastify.route({
     method: "GET",
     url: "/:date",
@@ -36,14 +35,13 @@ async function routes(fastify, options) {
           return { ...(await Movie.findByPk(id)).toJSON(), schedules: data };
         })
       );
-         // background: { r: 255, g: 0, b: 0, alpha: 0.5 }          
+      // background: { r: 255, g: 0, b: 0, alpha: 0.5 }
 
       return {
-          success: schedulesForDay
-      }
+        success: schedulesForDay,
+      };
     },
   });
-
 }
 
 module.exports = routes;

@@ -1,6 +1,6 @@
-const path = require('path');
+const path = require("path");
 
 exports.importModel = async function (name, instance) {
-    const module = await (require([__dirname, name ].join('/'))(instance));
-    return module.model;
-}
+  const module = await require([__dirname, name].join("/"))(instance);
+  return module.model;
+};

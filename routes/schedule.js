@@ -46,7 +46,7 @@ async function routes(fastify, options) {
   //     });
   //   },
   // });
-  
+
   fastify.route({
     method: "GET",
     url: "/by-date/:date",
@@ -137,7 +137,9 @@ async function routes(fastify, options) {
       const movie = await Movie.findByPk(String(request.body.movieId));
 
       if (!movie) {
-        const data = JSON.parse((await apiInstance.movieDetails(String(request.body.movieId))).body);
+        const data = JSON.parse(
+          (await apiInstance.movieDetails(String(request.body.movieId))).body
+        );
 
         await Movie.create({
           id: String(data.id),
@@ -158,7 +160,6 @@ async function routes(fastify, options) {
         vote: data.vote_average,
       });
 
-
       const cinema = await Cinema.findByPk(request.body.cinemaId);
       const movieType = await MovieType.findByPk(request.body.movieTypeId);
 
@@ -169,21 +170,27 @@ async function routes(fastify, options) {
         time: request.body.time,
       });
 
-      try{
-
+      try {
         await schedule.setMovie(movie);
         await schedule.setCinema(cinema);
 
         await schedule.setMovieType(movieType);
-      return schedule;
-
-      } catch(err) {
+        return schedule;
+      } catch (err) {
         await schedule.destroy();
         return {
-          error: err.errors.map(({ message, type, path }) => ({  message, type, path })),        // the http error message
-          message: err.errors.map(({ message, type, path }) => ({  message, type, path })),      // the user error message
-          statusCode: 400   // the http status code
-        }
+          error: err.errors.map(({ message, type, path }) => ({
+            message,
+            type,
+            path,
+          })), // the http error message
+          message: err.errors.map(({ message, type, path }) => ({
+            message,
+            type,
+            path,
+          })), // the user error message
+          statusCode: 400, // the http status code
+        };
       }
     },
   });
