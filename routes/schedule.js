@@ -72,14 +72,14 @@ async function routes(fastify, options) {
     handler: async (request, reply) => {
       const { Schedule, Movie, Cinema, MovieType } = fastify.models;
 
-      const movie = await Movie.findByPk(String(request.body.movieId));
+      let movie = await Movie.findByPk(String(request.body.movieId));
 
       if (!movie) {
         const data = JSON.parse(
           (await apiInstance.movieDetails(String(request.body.movieId))).body
         );
 
-        await Movie.create({
+        movie = await Movie.create({
           id: String(data.id),
           overview: data.overview,
           poster_path: data.poster_path,
