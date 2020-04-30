@@ -11,6 +11,9 @@ const schema = {
     title: {
       type: "string",
     },
+    youtubeId: {
+      type: "string",
+    },
     vote: {
       type: "integer",
     },

@@ -12,6 +12,7 @@ module.exports = async (sequelize) => {
       poster_path: DataTypes.STRING,
       release_date: DataTypes.DATE,
       title: DataTypes.STRING(35),
+      youtubeId: DataTypes.STRING(20),
       vote: DataTypes.DOUBLE,
     },
     {
