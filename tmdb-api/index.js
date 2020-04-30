@@ -54,6 +54,8 @@ class Tmdb {
   async getTrailerForMovie(movieId) {
     const result = (await this._fetch(`/movie/${movieId}/videos`)).results;
 
+    console.log(result)
+
     if (result) {
       const videos = result.filter(({ type }) => type === "Trailer");
       return videos.length ? videos[0].key : "";
