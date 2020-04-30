@@ -50,6 +50,12 @@ class Tmdb {
   upcomingMovies() {
     return this._fetch("/movie/upcoming");
   }
+
+  async getTrailerForMovie(movieId) {
+    const result = (await this._fetch(`/movie/${movieId}/videos`)).filter(({ type }) => type === 'Trailer');
+    
+    return result.length ? result[0].key : ''
+  }
 }
 
 module.exports = new Tmdb({
