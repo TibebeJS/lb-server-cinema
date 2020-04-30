@@ -86,15 +86,9 @@ async function routes(fastify, options) {
           release_date: data.release_date,
           title: data.title,
           vote: data.vote_average,
+          youtubeId: await apiInstance.getTrailerForMovie(data.id)
         });
-        request.log.info({
-          id: data.id,
-          overview: data.overview,
-          poster_path: data.poster_path,
-          release_date: data.release_date,
-          title: data.title,
-          vote: data.vote_average,
-        });
+        request.log.info(`[model] movie created -> ID: ${data.id}`);
       }
 
       const cinema = await Cinema.findByPk(request.body.cinemaId);
