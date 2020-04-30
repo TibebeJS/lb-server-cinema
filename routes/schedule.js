@@ -79,6 +79,8 @@ async function routes(fastify, options) {
           (await apiInstance.movieDetails(String(request.body.movieId))).body
         );
 
+        const youtubeId = await apiInstance.getTrailerForMovie(data.id, request.log)
+
         movie = await Movie.create({
           id: String(data.id),
           overview: data.overview,
@@ -86,7 +88,7 @@ async function routes(fastify, options) {
           release_date: data.release_date,
           title: data.title,
           vote: data.vote_average,
-          youtubeId: await apiInstance.getTrailerForMovie(data.id)
+          youtubeId
         });
         request.log.info(`[model] movie created -> ID: ${data.id}`);
       }

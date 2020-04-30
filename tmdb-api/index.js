@@ -51,13 +51,14 @@ class Tmdb {
     return this._fetch("/movie/upcoming");
   }
 
-  async getTrailerForMovie(movieId) {
+  async getTrailerForMovie(movieId, logger) {
     const result = (await this._fetch(`/movie/${movieId}/videos`)).results;
 
-    console.log(result)
+    if (logger) logger.info(result);
 
     if (result) {
       const videos = result.filter(({ type }) => type === "Trailer");
+      if (logger) logger.info(videos);
       return videos.length ? videos[0].key : "";
     } else {
       return "";
