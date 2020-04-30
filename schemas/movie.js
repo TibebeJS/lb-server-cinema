@@ -2,7 +2,7 @@ const schema = {
   $id: "movie",
   type: "object",
   properties: {
-    id: { type: "integer" },
+    id: { type: "string" },
     overview: { type: "string" },
     poster_path: { type: "string" },
     release_date: {
