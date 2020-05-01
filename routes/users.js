@@ -1,34 +1,7 @@
 const admin = require("../services/firebase-service");
 const { notification, verification } = require("../services/email-service");
-const path = require("path");
 
-const fs = require("fs");
-const fsPromise = fs.promises;
-
-const generateAdminEmailVerification = async (name, verificationLink) => {
-  const template = await fsPromise.readFile(
-    path.join(__dirname, "../templates/email/admin/verify-email.html"),
-    {
-      encoding: "utf-8",
-    }
-  );
-  return template
-    .replace("{{emailVerificationLink}}", verificationLink)
-    .replace("{{name}}", name);
-};
-
-const generateAdminDeleteNotification = async (user) => {
-  const template = await fsPromise.readFile(
-    path.join(
-      __dirname,
-      "../templates/email/admin/admin-access-revocation.html"
-    ),
-    {
-      encoding: "utf-8",
-    }
-  );
-  return template.replace("{{name}}", user.displayName);
-};
+const templates = require("../templates");
 
 async function routes(fastify, options) {
   fastify.route({
@@ -73,7 +46,7 @@ async function routes(fastify, options) {
     },
     preHandler: fastify.auth([fastify.verifyAdmin]),
     handler: async (request, reply) => {
-      await admin.auth().createUser({
+      const user = await admin.auth().createUser({
         email: request.body.emailAddress,
         displayName: request.body.fullName,
         password: request.body.phoneNumber.replace("+251", "0"),
@@ -85,11 +58,11 @@ async function routes(fastify, options) {
         .generateEmailVerificationLink(request.body.emailAddress);
 
       const mailOptions = {
-        from: "verification@gast-cinema.addis-dev.com", // sender address
-        to: "tibebes.js@gmail.com", // list of receivers
-        subject: "GAST Cinema Admin Access Verification", // Subject line
-        html: await generateAdminEmailVerification(
-          request.body.fullName,
+        from: EMAIL_USERNAME_VERIFICATION,
+        to: "tibebes.js@gmail.com",
+        subject: "GAST Cinema Admin Access Verification",
+        html: await templates.admin.generateVerificationEmailTemplate(
+          user,
           emailVerificationLink
         ),
       };
@@ -121,10 +94,10 @@ async function routes(fastify, options) {
       await admin.auth().deleteUser(request.params.uid);
 
       const mailOptions = {
-        from: "notification@gast-cinema.addis-dev.com",
+        from: process.env.EMAIL_USERNAME_NOTIFICATION,
         to: user.email,
         subject: "GAST Cinema Admin Access revocation notification",
-        html: await generateAdminDeleteNotification(user),
+        html: await templates.admin.generateRevocationEmailTemplate(user),
       };
 
       try {
