@@ -1,210 +1,161 @@
 <!DOCTYPE html
     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html>
+<html xmlns="http://www.w3.org/1999/xhtml">
 
 <head>
-    <meta charset="UTF-8">
-    <meta content="width=device-width, initial-scale=1" name="viewport">
-    <meta content="telephone=no" name="format-detection">
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
     <title></title>
-    <!--[if (mso 16)]>
-    <style type="text/css">
-    a {text-decoration: none;}
+    <style>
+        html {
+            font-size: 100%;
+            -webkit-text-size-adjust: 100%;
+            -ms-text-size-adjust: 100%
+        }
+
+        body {
+            margin: 0;
+            font-family: Helvetica, Arial, sans-serif;
+            font-size: 14px;
+            line-height: 18px;
+            color: #0E1724;
+            background-color: #fff
+        }
+
+        a {
+            color: #0087E0;
+            text-decoration: none;
+            border: 0
+        }
+
+        a:hover {
+            color: #139FF0;
+            text-decoration: underline
+        }
+
+        p {
+            padding: 0 !important;
+            margin: 0 !important;
+            color: #0E1724
+        }
+
+        img {
+            border: none
+        }
     </style>
-    <![endif]-->
-    <!--[if gte mso 9]><style>sup { font-size: 100% !important; }</style><![endif]-->
 </head>
 
 <body>
-    <div class="es-wrapper-color">
-        <!--[if gte mso 9]>
-			<v:background xmlns:v="urn:schemas-microsoft-com:vml" fill="t">
-				<v:fill type="tile" color="#cccccc"></v:fill>
-			</v:background>
-		<![endif]-->
-        <table class="es-wrapper" width="100%" cellspacing="0" cellpadding="0">
-            <tbody>
-                <tr>
-                    <td class="esd-email-paddings" valign="top">
-                        <table cellpadding="0" cellspacing="0" class="es-header">
-                            <tbody>
+
+    <table border="0" cellpadding="0" cellspacing="0" height="100%" width="100%" id="bodyTable">
+        <tr>
+            <td align="center" valign="top">
+                <table border="0" cellpadding="10" cellspacing="0" width="600" id="emailContainer">
+                    <tr>
+                        <td align="center" valign="top">
+                            <table border="0" cellpadding="10" cellspacing="0" width="100%" id="emailHeader">
                                 <tr>
-                                    <td class="esd-stripe" esd-custom-block-id="3089">
-                                        <table class="es-header-body" width="600" cellspacing="0" cellpadding="0">
-                                            <tbody>
-                                                <tr>
-                                                    <td class="esd-structure es-p10t es-p10b es-p10r es-p10l">
-                                                        <table width="100%" cellspacing="0" cellpadding="0">
-                                                            <tbody>
-                                                                <tr>
-                                                                    <td class="esd-container-frame" width="580"
-                                                                        valign="top">
-                                                                        <table width="100%" cellspacing="0"
-                                                                            cellpadding="0">
-                                                                            <tbody>
-                                                                                <tr>
-                                                                                    <td class="esd-block-image"
-                                                                                        style="font-size:0"><a href="#"
-                                                                                            target="_blank"><img
-                                                                                                src="https://cinema.gastmall.net/views/images/logo.png"
-                                                                                                alt="Smart home logo"
-                                                                                                title="Smart home logo"
-                                                                                                width="109"></a></td>
-                                                                                </tr>
-                                                                            </tbody>
-                                                                        </table>
-                                                                    </td>
-                                                                </tr>
-                                                            </tbody>
-                                                        </table>
-                                                    </td>
-                                                </tr>
-                                            </tbody>
+                                    <td align="center" valign="top">
+                                        <%- include('partials/header.ejs') -%>
+                                    </td>
+                                </tr>
+                            </table>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td align="center" valign="top">
+                            <table border="0" cellpadding="10" cellspacing="0" width="100%" id="emailBody">
+                                <tr>
+                                    <td colspan="3" height="10"></td>
+                                </tr>
+                                <tr>
+                                    <td colspan="3">
+                                        <p
+                                            style="color: #404040; font-size: 16px; line-height: 20px; padding: 0; margin: 0;">
+                                            Hey, <%= user.displayName %>. We take the safety
+                                            of our users seriously.
+                                            We just need you to verify your email address by
+                                            clicking the button below:
+                                        </p>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td colspan="3" height="10"></td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <table bgcolor="darkcyan" align="left" cellpadding="0" cellspacing="0"
+                                            style="font-family:Arial, sans-serif; -webkit-border-radius: 2px; -moz-border-radius: 2px; border-radius: 2px; height: 50px;">
+                                            <tr>
+                                                <td align="center"
+                                                    style="padding: 10px 20px; margin: 0; font-family:Arial,Helvetica,sans-serif;font-size:16px; line-height: 1em;">
+                                                    <a href="<%= emailVerificationLink %>"
+                                                        style="font-size:14px;font-weight:bold;color:white;text-decoration:none;padding:10px 0">
+                                                        Verify your email address
+                                                    </a></td>
+                                            </tr>
                                         </table>
                                     </td>
                                 </tr>
-                            </tbody>
-                        </table>
-                        <table class="es-content" cellspacing="0" cellpadding="0">
-                            <tbody>
                                 <tr>
-                                    <td class="esd-stripe" esd-custom-block-id="3109">
-                                        <table class="es-content-body" style="background-color: #ffffff;" width="600"
-                                            cellspacing="0" cellpadding="0">
-                                            <tbody>
-                                                <tr>
-                                                    <td class="esd-structure es-p20t es-p20b es-p40r es-p40l"
-                                                        esd-general-paddings-checked="true">
-                                                        <table width="100%" cellspacing="0" cellpadding="0">
-                                                            <tbody>
-                                                                <tr>
-                                                                    <td class="esd-container-frame" width="520"
-                                                                        valign="top">
-                                                                        <table width="100%" cellspacing="0"
-                                                                            cellpadding="0">
-                                                                            <tbody>
-                                                                                <tr>
-                                                                                    <td class="esd-block-text">
-                                                                                        <h1 style="color: #4a7eb0;">
-                                                                                            Email Address Verification
-                                                                                        </h1>
-                                                                                    </td>
-                                                                                </tr>
-                                                                                <tr>
-                                                                                    <td class="esd-block-spacer es-p5t es-p20b"
-                                                                                        style="font-size:0">
-                                                                                        <table width="5%" height="100%"
-                                                                                            cellspacing="0"
-                                                                                            cellpadding="0" border="0">
-                                                                                            <tbody>
-                                                                                                <tr>
-                                                                                                    <td
-                                                                                                        style="border-bottom: 2px solid #999999; background: rgba(0, 0, 0, 0) none repeat scroll 0% 0%; height: 1px; width: 100%; margin: 0px;">
-                                                                                                    </td>
-                                                                                                </tr>
-                                                                                            </tbody>
-                                                                                        </table>
-                                                                                    </td>
-                                                                                </tr>
-                                                                                <tr>
-                                                                                    <td class="esd-block-text es-p10b">
-                                                                                        <p><span
-                                                                                                style="font-size: 16px; line-height: 150%;">Hi,
-                                                                                                <%= user.displayName %></span>
-                                                                                        </p>
-                                                                                    </td>
-                                                                                </tr>
-                                                                                <tr>
-                                                                                    <td class="esd-block-text">
-                                                                                        <p>We've added your phone number
-                                                                                            to your account, as you
-                                                                                            asked. Your phone number
-                                                                                            will be used if you forgot
-                                                                                            your password and for
-                                                                                            important account message.
-                                                                                            Your phone number must be
-                                                                                            verified.</p>
-                                                                                    </td>
-                                                                                </tr>
-                                                                                <tr>
-                                                                                    <td
-                                                                                        class="esd-block-button es-p20t es-p20b">
-                                                                                        <span
-                                                                                            class="es-button-border"><a
-                                                                                                href="<%= emailVerificationLink %>"
-                                                                                                class="es-button"
-                                                                                                target="_blank"
-                                                                                                style="border-width: 10px 25px;">Verify
-                                                                                                Email Address</a></span>
-                                                                                    </td>
-                                                                                </tr>
-                                                                                <tr>
-                                                                                    <td class="esd-block-text">
-                                                                                        <p>If you need help visit the <a
-                                                                                                target="_blank"
-                                                                                                href="#">Help</a> page
-                                                                                            or <a target="_blank"
-                                                                                                href="#">contact us</a>.
-                                                                                        </p>
-                                                                                    </td>
-                                                                                </tr>
-                                                                            </tbody>
-                                                                        </table>
-                                                                    </td>
-                                                                </tr>
-                                                            </tbody>
-                                                        </table>
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <td class="esd-structure es-p20t es-p20b es-p40r es-p40l"
-                                                        esd-general-paddings-checked="true">
-                                                        <table width="100%" cellspacing="0" cellpadding="0">
-                                                            <tbody>
-                                                                <tr>
-                                                                    <td class="esd-container-frame" width="520"
-                                                                        valign="top">
-                                                                        <table width="100%" cellspacing="0"
-                                                                            cellpadding="0">
-                                                                            <tbody>
-                                                                                <tr>
-                                                                                    <td class="esd-block-spacer es-p20t es-p20b es-p5r"
-                                                                                        style="font-size:0">
-                                                                                        <table width="100%"
-                                                                                            height="100%"
-                                                                                            cellspacing="0"
-                                                                                            cellpadding="0" border="0">
-                                                                                            <tbody>
-                                                                                                <tr>
-                                                                                                    <td
-                                                                                                        style="border-bottom: 1px solid #ffffff; background: rgba(0, 0, 0, 0) none repeat scroll 0% 0%; height: 1px; width: 100%; margin: 0px;">
-                                                                                                    </td>
-                                                                                                </tr>
-                                                                                            </tbody>
-                                                                                        </table>
-                                                                                    </td>
-                                                                                </tr>
-                                                                            </tbody>
-                                                                        </table>
-                                                                    </td>
-                                                                </tr>
-                                                            </tbody>
-                                                        </table>
-                                                    </td>
-                                                </tr>
-                                            </tbody>
-                                        </table>
+                                    <td colspan="3" height="50"></td>
+                                </tr>
+                                <tr>
+                                    <td colspan="3">
+                                        <p
+                                            style="color: #404040; font-size: 16px; line-height: 20px; padding: 0; margin: 0;">
+                                            The button didn't work? Copy and paste this link
+                                            to your address bar:
+                                        </p>
                                     </td>
                                 </tr>
-                            </tbody>
-                        </table>
-
-
-                    </td>
-                </tr>
-            </tbody>
-        </table>
-    </div>
+                                <tr>
+                                    <td colspan="3" height="10"></td>
+                                </tr>
+                                <tr>
+                                    <td colspan="3">
+                                        <p
+                                            style="color: #404040; font-size: 14px; line-height: 20px; padding: 0; margin: 0;">
+                                            <%= emailVerificationLink %>
+                                        </p>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td colspan="3" height="40"></td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <p
+                                            style="color: #404040; font-size: 16px; line-height: 20px; padding: 0; margin: 0;">
+                                            If you have any issues confirming your email, we
+                                            will be happy to help you. You can contact us on
+                                            <a href="mailto:support@gast-cinema.addis-dev.com"
+                                                style="color: #0070bf; font-weight: bold;">support@gast-cinema.addis-dev.com</a>.
+                                        </p>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td colspan="3" height="40"
+                                        style="padding: 0; margin: 0; font-size: 1; line-height: 0;">
+                                    </td>
+                                </tr>
+                            </table>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td align="center" valign="top">
+                            <table border="0" cellpadding="10" cellspacing="0" width="100%" id="emailFooter">
+                                <tr>
+                                    <td align="center" valign="top">
+                                        <%- include('partials/footer.ejs') -%>
+                                    </td>
+                                </tr>
+                            </table>
+                        </td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+    </table>
 </body>
 
 </html>
