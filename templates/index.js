@@ -3,7 +3,7 @@ const ejs = require("ejs");
 
 function render(templatePath, data) {
   return new Promise(function (resolve, reject) {
-    ejs.renderFile(path.join(__dirname, templatePath), data, options, function (
+    ejs.renderFile(path.join(__dirname, templatePath), data, function (
       err,
       str
     ) {
