@@ -8,15 +8,13 @@ const fastify = require("fastify")({
   },
 });
 
-const fsequelize = require("fastify-sequelize");
-
 const {
   cinemas,
   movies,
   schedules,
   sendScheduleToTelegram,
   logs,
-  users
+  users,
 } = require("./routes");
 
 fastify.register(require("fastify-cors"), {
@@ -73,7 +71,7 @@ fastify
         fastify.register(logs, {
           prefix: "/logs",
         });
-      
+
         fastify.register(users, {
           prefix: "/users",
         });
