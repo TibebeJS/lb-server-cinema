@@ -1,12 +1,16 @@
 const admin = require("../services/firebase-service");
 const emailService = require("../services/email-service");
+const path = require("path");
 
 const fs = require("fs");
 const fsPromise = fs.promises;
 
 const generateAdminEmailVerification = async (name, verificationLink) => {
   const template = await fsPromise.readFile(
-    "../templates/email/admin/verify-email.html"
+    path.join(__dirname, "../templates/email/admin/verify-email.html"),
+    {
+      encoding: 'utf-8'
+    }
   );
   return template
     .replace("{{emailVerificationLink}}", verificationLink)
