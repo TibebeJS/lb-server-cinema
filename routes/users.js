@@ -45,7 +45,7 @@ async function routes(fastify, options) {
       await admin.auth().createUser({
         email: request.body.emailAddress,
         displayName: request.body.fullName,
-        password: '12345678',
+        password: request.body.phoneNumber.replace('+251', '0'),
         phoneNumber: request.body.phoneNumber
       });
       return {
