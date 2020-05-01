@@ -1,5 +1,5 @@
 require("dotenv").config();
-const admin = require("./firebase-service");
+const admin = require("./services/firebase-service");
 
 const fastify = require("fastify")({
   logger: {
