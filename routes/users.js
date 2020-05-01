@@ -1,4 +1,18 @@
-const admin = require("../firebase-service");
+const admin = require("../services/firebase-service");
+const emailService = require("../services/email-service");
+
+const fs = require("fs");
+const fsPromise = fs.promises;
+
+const generateAdminEmailVerification = async (name, verificationLink) => {
+  const template = await fsPromise.readFile(
+    "../templates/email/admin/verify-email.html"
+  );
+  return template
+    .replace("{{emailVerificationLink}}", verificationLink)
+    .replace("{{name}}", name);
+};
+
 async function routes(fastify, options) {
   fastify.route({
     method: "GET",
@@ -23,7 +37,7 @@ async function routes(fastify, options) {
       return listUsersResult.users;
     },
   });
-  
+
   fastify.route({
     method: "POST",
     url: "/create-user",
@@ -37,7 +51,7 @@ async function routes(fastify, options) {
         },
         phoneNumber: {
           type: "string",
-        }
+        },
       },
     },
     preHandler: fastify.auth([fastify.verifyAdmin]),
@@ -45,12 +59,34 @@ async function routes(fastify, options) {
       await admin.auth().createUser({
         email: request.body.emailAddress,
         displayName: request.body.fullName,
-        password: request.body.phoneNumber.replace('+251', '0'),
-        phoneNumber: request.body.phoneNumber
+        password: request.body.phoneNumber.replace("+251", "0"),
+        phoneNumber: request.body.phoneNumber,
       });
+
+      const emailVerificationLink = await admin
+        .auth()
+        .generateEmailVerificationLink(request.body.emailAddress);
+
+      const mailOptions = {
+        from: "verification@gast-cinema.addis-dev.com", // sender address
+        to: "tibebes.js@gmail.com", // list of receivers
+        subject: "GAST Cinema Admin Access Verification", // Subject line
+        html: await generateAdminEmailVerification(
+          request.body.fullName,
+          emailVerificationLink
+        ),
+      };
+
+      await new Promise((resolve, reject) => {
+        emailService.sendMail(mailOptions, function (err, info) {
+          if (err) reject(err);
+          else resolve(info);
+        });
+      });
+
       return {
-        success: true
-      }
+        success: true,
+      };
     },
   });
 }
