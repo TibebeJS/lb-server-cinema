@@ -40,7 +40,9 @@ class Tmdb {
   movieDetails(id) {
     if (!id) throw new Error("Missing id");
 
-    return this._fetch(`/movie/${id}`);
+    return this._fetch(`/movie/${id}`, {
+      append_to_response: "credits",
+    });
   }
 
   nowPlayingOnCinema({ page, language, region }) {
@@ -52,10 +54,12 @@ class Tmdb {
   }
 
   async getTrailerForMovie(movieId) {
-    const result = (await this._fetch(`/movie/${movieId}/videos`).json());
+    const result = await this._fetch(`/movie/${movieId}/videos`).json();
 
     if (result.body) {
-      const videos = result.body.results.filter(({ type }) => type === "Trailer");
+      const videos = result.body.results.filter(
+        ({ type }) => type === "Trailer"
+      );
 
       return videos.length ? videos[0].key : "";
     } else {
