@@ -188,11 +188,11 @@ async function routes(fastify, options) {
           type: "string",
         },
       },
-      response: {
-        200: {
-          type: "movie#",
-        },
-      },
+      // response: {
+      //   200: {
+      //     type: "movie#",
+      //   },
+      // },
     },
     preHandler: async (request, reply) => {},
     handler: async (request, reply) => {
