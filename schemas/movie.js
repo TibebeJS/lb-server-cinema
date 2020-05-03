@@ -5,6 +5,7 @@ const schema = {
     id: { type: "string" },
     overview: { type: "string" },
     poster_path: { type: "string" },
+    backdrop_path: { type: "string" },
     release_date: {
       type: "string",
     },

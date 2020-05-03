@@ -10,6 +10,7 @@ module.exports = async (sequelize) => {
       },
       overview: DataTypes.TEXT,
       poster_path: DataTypes.STRING,
+      backdrop_path: DataTypes.STRING,
       release_date: DataTypes.DATE,
       title: DataTypes.STRING(35),
       youtubeId: DataTypes.STRING(20),
