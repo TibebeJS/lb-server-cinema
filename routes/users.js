@@ -55,11 +55,11 @@ async function routes(fastify, options) {
 
       const emailVerificationLink = await admin
         .auth()
-        .generateEmailVerificationLink(request.body.emailAddress);
+        .generateEmailVerificationLink(user.email);
 
       const mailOptions = {
         from: process.env.EMAIL_USERNAME_VERIFICATION,
-        to: "tibebes.js@gmail.com",
+        to: user.email,
         subject: "GAST Cinema Admin Access Verification",
         html: await templates.admin.generateVerificationEmailTemplate(
           user,
@@ -76,12 +76,12 @@ async function routes(fastify, options) {
         });
         return {
           success: true,
-        };  
+        };
       } catch (error) {
         console.log(error);
         return {
-          success: false
-        };  
+          success: false,
+        };
       }
     },
   });
