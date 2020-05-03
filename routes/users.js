@@ -119,6 +119,78 @@ async function routes(fastify, options) {
       };
     },
   });
+
+  fastify.route({
+    method: "POST",
+    url: "/:uid/suspend",
+    schema: {},
+    preHandler: fastify.auth([fastify.verifyAdmin]),
+    handler: async (request, reply) => {
+      const user = await admin.auth().updateUser(request.params.uid, {
+        disabled: true,
+      });
+
+      // await admin.auth().deleteUser(request.params.uid);
+
+      const mailOptions = {
+        from: `GAST Cinema Admin <${process.env.EMAIL_USERNAME_NOTIFICATION}>`,
+        to: user.email,
+        subject: "GAST Cinema Admin Access Suspension notification",
+        html: await templates.admin.generateSuspensionEmailTemplate(user),
+      };
+
+      try {
+        await new Promise((resolve, reject) => {
+          notification.sendMail(mailOptions, function (err, info) {
+            if (err) reject(err);
+            else resolve(info);
+          });
+        });
+      } catch (error) {
+        console.log(error);
+      }
+
+      return {
+        success: true,
+      };
+    },
+  });
+
+  fastify.route({
+    method: "POST",
+    url: "/:uid/unsuspend",
+    schema: {},
+    preHandler: fastify.auth([fastify.verifyAdmin]),
+    handler: async (request, reply) => {
+      const user = await admin.auth().updateUser(request.params.uid, {
+        disabled: false,
+      });
+
+      // await admin.auth().deleteUser(request.params.uid);
+
+      const mailOptions = {
+        from: `GAST Cinema Admin <${process.env.EMAIL_USERNAME_NOTIFICATION}>`,
+        to: user.email,
+        subject: "GAST Cinema Admin Access Unsuspension notification",
+        html: await templates.admin.generateUnsuspensionEmailTemplate(user),
+      };
+
+      try {
+        await new Promise((resolve, reject) => {
+          notification.sendMail(mailOptions, function (err, info) {
+            if (err) reject(err);
+            else resolve(info);
+          });
+        });
+      } catch (error) {
+        console.log(error);
+      }
+
+      return {
+        success: true,
+      };
+    },
+  });
 }
 
 module.exports = routes;

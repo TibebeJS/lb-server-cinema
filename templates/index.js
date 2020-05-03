@@ -26,5 +26,15 @@ module.exports = {
         user,
       });
     },
+    async generateSuspensionEmailTemplate(user) {
+      return await render("admin/suspension-email.ejs", {
+        user,
+      });
+    },
+    async generateUnsuspensionEmailTemplate(user) {
+      return await render("admin/unsuspension-email.ejs", {
+        user,
+      });
+    },
   },
 };
