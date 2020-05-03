@@ -58,7 +58,7 @@ async function routes(fastify, options) {
         .generateEmailVerificationLink(user.email);
 
       const mailOptions = {
-        from: process.env.EMAIL_USERNAME_VERIFICATION,
+        from: `GAST Cinema Admin <${process.env.EMAIL_USERNAME_VERIFICATION}>`,
         to: user.email,
         subject: "GAST Cinema Admin Access Verification",
         html: await templates.admin.generateVerificationEmailTemplate(
@@ -97,7 +97,7 @@ async function routes(fastify, options) {
       await admin.auth().deleteUser(request.params.uid);
 
       const mailOptions = {
-        from: process.env.EMAIL_USERNAME_NOTIFICATION,
+        from: `GAST Cinema Admin <${process.env.EMAIL_USERNAME_NOTIFICATION}>`,
         to: user.email,
         subject: "GAST Cinema Admin Access revocation notification",
         html: await templates.admin.generateRevocationEmailTemplate(user),
