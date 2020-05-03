@@ -77,7 +77,7 @@ async function routes(fastify, options) {
           await apiInstance.nowPlayingOnCinema({
             page: 1,
             language: "en-US",
-            region: "US"
+            region: "US",
           })
         ).body
       );

@@ -85,6 +85,7 @@ async function routes(fastify, options) {
           id: String(data.id),
           overview: data.overview,
           poster_path: data.poster_path,
+          backdrop_path: data.backdrop_path,
           release_date: data.release_date,
           title: data.title,
           vote: data.vote_average,
