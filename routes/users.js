@@ -58,7 +58,7 @@ async function routes(fastify, options) {
         .generateEmailVerificationLink(user.email);
 
       const mailOptions = {
-        from: `GAST Cinema Admin <${process.env.EMAIL_USERNAME_VERIFICATION}>`,
+        from: `GAST Cinema Verification <${process.env.EMAIL_USERNAME_VERIFICATION}>`,
         to: user.email,
         subject: "GAST Cinema Admin Access Verification",
         html: await templates.admin.generateVerificationEmailTemplate(
