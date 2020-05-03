@@ -26,7 +26,7 @@ fastify.register(require("./schemas"));
 fastify.register(require("./models").plugin).ready();
 
 fastify
-  .decorate("verifyAdmin", async function (request, reply, done) {
+  .decorate("verifyAdmin", function (request, reply, done) {
     const authorizationError = new Error(
       "must be authenticated as an admin to perform this operation"
     );
@@ -35,19 +35,17 @@ fastify
       request.headers.authorization &&
       request.headers.authorization.split(" ")[0] === "Bearer"
     ) {
-      const userInfo = await admin
+      admin
         .auth()
-        .verifyIdToken(request.headers.authorization.split(" ")[1]);
-
-      try {
-        if (userInfo && userInfo.uid) {
-          done();
-        } else {
+        .verifyIdToken(request.headers.authorization.split(" ")[1]).then(userInfo => {
+          if (userInfo && userInfo.uid) {
+            done();
+          } else {
+            done(authorizationError);
+          }
+        }).catch(error => {
           done(authorizationError);
-        }
-      } catch (error) {
-        done(authorizationError);
-      }
+        })
     } else {
       done(authorizationError);
     }
