@@ -181,7 +181,7 @@ async function routes(fastify, options) {
   // MOVIE DETAIL
   fastify.route({
     method: "GET",
-    url: "/:movieId/",
+    url: "/:movieId",
     schema: {
       querystring: {
         id: {
@@ -190,14 +190,14 @@ async function routes(fastify, options) {
       },
       response: {
         200: {
-          type: "array",
-          items: "movie#",
+          type: "movie#",
         },
       },
     },
     preHandler: async (request, reply) => {},
     handler: async (request, reply) => {
-      return [];
+      const { Movie } = fastify.models;
+      return await Movie.findByPk(String(request.params.movieId));
     },
   });
 }
