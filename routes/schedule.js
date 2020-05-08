@@ -39,6 +39,32 @@ async function routes(fastify, options) {
     },
   });
 
+  fastify.route({
+    method: "GET",
+    url: "/by-movie/:id",
+    schema: {
+      // response: {
+      //     200: {
+      //         type: 'array',
+      //         items: 'schedule#'
+      //     },
+      // }
+    },
+    preHandler: async (request, reply) => {},
+    handler: async (request, reply) => {
+      const { Schedule, Movie, Cinema, MovieType } = fastify.models;
+
+      return {
+        ...(await Movie.findByPk(request.params.id)).toJSON(),
+        schedules: await Schedule.findAll({
+          where: { MovieId: request.params.id },
+          include: [Cinema, MovieType],
+          field: ["date", "time", "id"],
+        }),
+      };
+    },
+  });
+
   // create a schedule
   fastify.route({
     method: "POST",
