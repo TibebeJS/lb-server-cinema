@@ -4,7 +4,7 @@ This is GAST cinema's REST Server for Admin Control and Mobile App.
 
 Created in Node.js platform with Sequelize & Fastify
 
-Developed by: [Tibebeselasie Mehari](https://addis-dev.com)
+Developed by: Tibebeselasie Mehari
 
 ##### How to run the project:
 - git clone this repo
